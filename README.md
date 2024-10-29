@@ -1,11 +1,12 @@
 [![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/NJK_cPkH)
+
+<img src="https://github.com/user-attachments/assets/0b3b54b3-a293-4582-9367-c71cb20df3ba"  width="500" height="500"/>
+
+---
+
 # 1. 프로젝트 소개
 ## 1.1. 배경 및 필요성
 ### 대형 언어 모델과 추천 시스템 : 대화형 추천 시스템으로
-![mainImage](https://github.com/user-attachments/assets/0b3b54b3-a293-4582-9367-c71cb20df3ba)
-
-
-
 
 2022년 OpenAI사의 대화형 인공지능 모델인 'ChatGPT'가 공개된 이래로 **대형 언어 모델**(**L**arge **L**anguage **M**odel, **LLM**) 분야는 끊임없이 발전을 거듭하고 있습니다.
 
@@ -59,10 +60,11 @@
 사용자의 발화 내용에서 유용한 정보를 추출하고, 이를 기반으로 한 추천을 통하여 
 
 각 사용자의 개인적 선호와 맥락에 일치하는 최적의 아이템(영화) 및 근거를 산출하는 서비스를 제공하는 것을 목표로 합니다.
+
 ### 프로젝트 주요 내용
 
 
-
+---
 # 2. 상세 설계
 
 ## 2.1. 시스템 구성도
@@ -78,6 +80,7 @@
 
 ### DataBase
 
+---
 # 3. 설치 및 사용법
 
 본 프로젝트는 Ubuntu 20.04 버전에서 개발되었으며 함께 포함된 다음의 스크립트를 수행하여 
@@ -86,11 +89,12 @@
 $ ./install_and_build.sh
 ```
 
+---
 # 4. 소개 및 시연 영상
 [![2024년 전기 졸업과제 26 LLecommend](http://img.youtube.com/vi/WqjpfN7P3K4/0.jpg)](https://www.youtube.com/watch?v=WqjpfN7P3K4&list=PLFUP9jG-TDp-CVdTbHvql-WoADl4gNkKj&index=26)
 
-
-# 5. 팀소개
+---
+# 5. 팀 소개
 ### 박지환, mobush99@gmail.com
 * 데이터 분석 및 전처리
 * 추천 시스템 구축
@@ -110,29 +114,6 @@ $ ./install_and_build.sh
 
 
 
-
-
-# Template for Capstone
-이 레파지토리는 학생들이 캡스톤 프로젝트 결과물을 위한 레파지토리 생성시에 참고할 내용들을 담고 있습니다.
-1. 레파지토리 생성
-2. 레파지토리 구성
-3. 레파지토리 제출 
-4. README.md 가이드라인
-5. README.md 작성팁
-
----
-
-## 1. 레파지토리 생성
-- [https://classroom.github.com/a/NJK_cPkH](https://classroom.github.com/a/NJK_cPkH)
-- 위 Github Classroom 링크에 접속해 본인 조의 github 레파지토리를 생성하세요.
-<img src="https://github.com/user-attachments/assets/b5a7f34a-e146-4253-b57d-672737a75a50" alt="깃헙 클래스룸 레포 생성" width="600" />
-
-- 레포지토리 생성 시 팀명은 `TEAM-{조 번호}` 형식으로 생성하세요.
-- 예를 들어, 2024년도 3조의 팀명은 `TEAM-03` 입니다.
-- 이 경우 `Capstone2024-TEAM-03`이란 이름으로 레파지토리가 생성됩니다.
-
----
-
 ## 2. 레파지토리 구성
 - 레파지토리 내에 README.md 파일 생성하고 아래의 가이드라인과 작성팁을 참고하여 README.md 파일을 작성하세요. (이 레파지토리의 SAMPLE_README.md 참조)
 - 레파지토리 내에 docs 디렉토리를 생성하고 docs 디렉토리 내에는 과제 수행 하면서 작성한 각종 보고서, 발표자료를 올려둡니다. (이 레파지토리의 docs 디렉토리 참조)
@@ -150,41 +131,6 @@ $ ./install_and_build.sh
 - [ Specify an organization or username ]에 'PNUCSE'를 입력하고 확인 메세지를 입력하세요.
   <img src="https://github.com/user-attachments/assets/7c63955d-dcfe-4ac3-bdb6-7d2620575f3a" alt="소유주 변경" width="400" />
 
----
-
-## 4. README.md 가이드 라인
-- README 파일 작성시에 아래의 5가지 항목의 내용은 필수적으로 포함해야 합니다.
-- 아래의 5가지 항목이외에 프로젝트의 이해를 돕기 위한 내용을 추가해도 됩니다.
-- SAMPLE_README.md 이 단순한 형태의 예제이니 참고하세요.
-
-```markdown
-### 1. 프로젝트 소개
-#### 1.1. 배경 및 필요성
-> 프로젝트를 실행하게 된 배경 및 필요성을 작성하세요.
-
-#### 1.2. 목표 및 주요 내용
-> 프로젝트의 목표 및 주요 내용을 작성하세요.
-
-### 2. 상세설계
-#### 2.1. 시스템 구성도
-> 시스템 구성도(infra, front, back등의 node 간의 관계)의 사진을 삽입하세요.
-
-#### 2.2. 사용 기술
-> 스택 별(backend, frontend, designer등) 사용한 기술 및 버전을 작성하세요.
-> 
-> ex) React.Js - React14, Node.js - v20.0.2
-
-### 3. 설치 및 사용 방법
-> 제품을 설치하기 위헤 필요한 소프트웨어 및 설치 방법을 작성하세요.
->
-> 제품을 설치하고 난 후, 실행 할 수 있는 방법을 작성하세요.
-
-### 4. 소개 및 시연 영상
-> 프로젝트에 대한 소개와 시연 영상을 넣으세요.
-
-### 5. 팀 소개
-> 팀원 소개 & 구성원 별 역할 분담 & 간단한 연락처를 작성하세요.
-```
 
 ## 5. README.md 작성팁 
 * 마크다운 언어를 이용해 README.md 파일을 작성할 때 참고할 수 있는 마크다운 언어 문법을 공유합니다.  
