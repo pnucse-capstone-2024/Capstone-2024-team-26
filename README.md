@@ -2,6 +2,8 @@
 # 1. 프로젝트 소개
 ## 1.1. 배경 및 필요성
 ### 대형 언어 모델과 추천 시스템 : 대화형 추천 시스템으로
+![mainImage](https://github.com/user-attachments/assets/0b3b54b3-a293-4582-9367-c71cb20df3ba)
+
 
 
 
