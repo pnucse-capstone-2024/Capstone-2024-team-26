@@ -32,12 +32,16 @@ interface Film {
   reason: string;
 }
 const MovieRecommendationBot = () => {
-  const [tooltip, setTooltip] = useState<{ [key: number]: { content: string; position: { left: string; top: string } } }>({});
+  const [isOpen, setIsOpen] = useState(false);
 
-  const handleMouseEnter = (movieId: number, movieTitle: string, event: React.MouseEvent<HTMLDivElement>) => {
-    const tooltipContent = `영화 "${movieTitle}"에 대한 자세한 정보`;
-    const tooltipWidth = 150; 
-    const offset = 10; 
+
+
+  const [tooltip, setTooltip] = useState<{ content: string; position: { left: string; top: string } } | null>(null);
+
+  const handleMouseEnter = (movieTitle: string, reason: string, event: React.MouseEvent<HTMLDivElement>) => {
+    const tooltipContent = `영화 "${movieTitle}": ${reason}`;
+    const tooltipWidth = 150;
+    const offset = 10;
 
     const { clientX, clientY } = event;
     const windowWidth = window.innerWidth;
@@ -47,33 +51,27 @@ const MovieRecommendationBot = () => {
     let top = clientY + offset;
 
     if (clientX + tooltipWidth + offset > windowWidth) {
-      left = clientX - tooltipWidth - offset; 
+      left = clientX - tooltipWidth - offset;
     }
     if (clientY + offset > windowHeight - 50) {
       top = clientY - 50 - offset;
     }
 
-    setTooltip((prevTooltips) => ({
-      ...prevTooltips,
-      [movieId]: { content: tooltipContent, position: { left: `${left}px`, top: `${top}px` } },
-    }));
-  };
-
-  const handleMouseLeave = (movieId: number) => {
-    setTooltip((prevTooltips) => {
-      const updatedTooltips = { ...prevTooltips };
-      delete updatedTooltips[movieId];
-      return updatedTooltips;
+    setTooltip({
+      content: tooltipContent,
+      position: { left: `${left}px`, top: `${top}px` },
     });
   };
 
-
-
+  const handleMouseLeave = () => {
+    setTooltip(null);
+  };
 
 
   const [description, setDescription] = useState('');
   const [message, setMessage] = useState<string | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(true);
+  const [step, setStep] = useState(1);
   const [movies, setMovies] = useState<Movie[]>([]);
   const [userTaste, setUserTaste] = useState('로맨틱 코미디');
   const [userInfo, setUserInfo] = useState({ age: '', gender: '', user_name: '', job: '' }); // Add job field
@@ -98,11 +96,22 @@ const MovieRecommendationBot = () => {
           user_input: description,
         }),
       });
-
+  
       if (response.ok) {
         const data = await response.json();
         console.log('서버 응답:', data);
         alert('데이터가 성공적으로 업데이트되었습니다.');
+  
+        const personaResponse = await fetch(`http://localhost:5000/${encodeURIComponent(userInfo.user_name)}/call_fastapi_persona`, {
+          method: 'POST',
+        });
+  
+        if (personaResponse.ok) {
+          console.log('성향 처리 성공');
+        } else {
+          console.error('성향 처리 실패:', personaResponse.statusText);
+          alert('성향 처리에 실패했습니다.');
+        }
       } else {
         console.error('업데이트 실패:', response.statusText);
         alert('업데이트에 실패했습니다.');
@@ -112,27 +121,28 @@ const MovieRecommendationBot = () => {
       alert('오류가 발생했습니다. 다시 시도해주세요.');
     }
   };
+  
 
-    const fetchMatchingItems = async (query: string, type: string) => {
-      if (!query || query.trim() === '') {
-        if (type === 'movies') setMatchingMovies([]);
-        if (type === 'genres') setMatchingGenres([]);
-        if (type === 'actors') setMatchingActors([]);
-        return;
-      }
+  const fetchMatchingItems = async (query: string, type: string) => {
+    if (!query || query.trim() === '') {
+      if (type === 'movies') setMatchingMovies([]);
+      if (type === 'genres') setMatchingGenres([]);
+      if (type === 'actors') setMatchingActors([]);
+      return;
+    }
 
-      try {
-        const response = await fetch(`http://localhost:5000/api/search?query=${query}&type=${type}`);
-        const data: Movie[] = await response.json();
+    try {
+      const response = await fetch(`http://localhost:5000/api/search?query=${query}&type=${type}`);
+      const data: Movie[] = await response.json();
 
-        if (type === 'movies') setMatchingMovies(data);
-        if (type === 'genres') setMatchingGenres(data);
-        if (type === 'actors') setMatchingActors(data);
+      if (type === 'movies') setMatchingMovies(data);
+      if (type === 'genres') setMatchingGenres(data);
+      if (type === 'actors') setMatchingActors(data);
 
-      } catch (error) {
-        console.error(`Error fetching matching ${type}:`, error);
-      }
-    };
+    } catch (error) {
+      console.error(`Error fetching matching ${type}:`, error);
+    }
+  };
 
   const handleAdd = async (item: string, type: 'movie' | 'actor' | 'genre') => {
     const exists = await checkItemExists(item, type);
@@ -188,7 +198,7 @@ const MovieRecommendationBot = () => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ item, type }) 
+        body: JSON.stringify({ item, type })
       });
 
       if (!response.ok) {
@@ -271,6 +281,7 @@ const MovieRecommendationBot = () => {
       }
     }
   }, [genreQuery, actorQuery]);
+  /*
 
   const fetchAdditionalMovies = async () => {
     try {
@@ -284,12 +295,12 @@ const MovieRecommendationBot = () => {
 
       const newMovieData: { title: string; genres: string; credits: string }[] = await response.json();
       newMovieData.forEach((movieData) => {
-        const genresArray = movieData.genres.match(/'([^']+)'/g) || []; 
+        const genresArray = movieData.genres.match(/'([^']+)'/g) || [];
         movieData.genres = genresArray.map(genre => genre.replace(/'/g, "")).join(", ");
-        const creditsArray = movieData.credits.match(/'([^']+)'/g) || []; 
+        const creditsArray = movieData.credits.match(/'([^']+)'/g) || [];
         movieData.credits = creditsArray.map(credits => credits.replace(/'/g, "")).join(", ");
       });
-      
+
 
       const newMovies: Movie[] = newMovieData.map((movieData, index) => ({
 
@@ -301,7 +312,7 @@ const MovieRecommendationBot = () => {
         actors: movieData.credits,
         vote_average: Math.random() * 10,
         userRating: 0,
-        overview: "No overview available",
+        overview: movieData.reason || "No overview available",
 
       }));
 
@@ -311,6 +322,65 @@ const MovieRecommendationBot = () => {
     }
   };
 
+  */
+  const fetchAdditionalMovies = async () => {
+  try {
+    const response = await fetch(`http://localhost:5000/${encodeURIComponent(userInfo.user_name)}/user_get_recommendations`, { 
+      method: 'GET',
+    });
+
+    if (!response.ok) {
+      throw new Error('Failed to fetch new movie recommendations');
+    }
+
+    const newMovieData: { title: string; genres: string; credits: string; reason?: string }[] = await response.json();
+    newMovieData.forEach((movieData) => {
+      const genresArray = movieData.genres.match(/'([^']+)'/g) || [];
+      movieData.genres = genresArray.map(genre => genre.replace(/'/g, "")).join(", ");
+      const creditsArray = movieData.credits.match(/'([^']+)'/g) || [];
+      movieData.credits = creditsArray.map(credits => credits.replace(/'/g, "")).join(", ");
+    });
+
+
+    const newMovies: Movie[] = newMovieData.map((movieData, index) => ({
+
+      movie_id: movies.length + index + 1,
+      title: movieData.title,
+      release_year: 2024 - index,
+      genre: movieData.genres,
+      director_names: "Unknown Director",
+      actors: movieData.credits,
+      vote_average: Math.random() * 10,
+      userRating: 0,
+      overview: movieData.reason || "No overview available",
+
+    }));
+
+    setMovies(prevMovies => [...prevMovies, ...newMovies]);
+  } catch (error) {
+    console.error("Error fetching additional movies:", error);
+  }
+};
+
+  const updateMovieRecommendations = async () => {
+    try {
+        const response = await fetch(`http://localhost:5000/api/users/${encodeURIComponent(userInfo.user_name)}/fetch_recommendations`, {
+            method: 'GET',
+        });
+
+        if (!response.ok) {
+            throw new Error('Failed to update movie recommendations');
+        }
+
+        // 응답 데이터를 사용하는 부분 삭제
+        console.log("Movie recommendations updated successfully.");
+
+    } catch (error) {
+        console.error("Error updating movie recommendations:", error);
+    }
+};
+
+  
 
   const sendUserInfo = async (userInfo: UserInfo): Promise<void> => {
     try {
@@ -355,11 +425,11 @@ const MovieRecommendationBot = () => {
   const StarRating: React.FC<StarRatingProps> = ({ rating, onRate }) => {
     return (
       <div className="flex">
-        {[1, 2, 3, 4, 5].map((star) => (
+        {[1, 2, 3, 4, 5].map((별) => (
           <Star
             key={star}
             className={`cursor-pointer transition-all duration-200 hover:scale-110 ${star <= rating ? 'text-yellow-400' : 'text-gray-300'}`}
-            onClick={() => onRate(star)}
+            onClick={() => onRate(별)}
           />
         ))}
       </div>
@@ -392,18 +462,90 @@ const MovieRecommendationBot = () => {
 
   return (
     <div>
-      {isModalOpen && (
+      {/* 1단계: 유저 이름 입력 */}
+      {isModalOpen && step === 1 && (
         <Dialog open={isModalOpen}>
           <DialogContent>
             <DialogHeader>
               <DialogTitle>유저 이름 입력</DialogTitle>
             </DialogHeader>
-            <Input id="user_name" value={userInfo.user_name} onChange={(e) => setUserInfo({ ...userInfo, user_name: e.target.value })} className="col-span-3" />
-            <Button onClick={handlePasswordSubmit}>확인</Button>
+            <Input
+              id="user_name"
+              value={userInfo.user_name}
+              onChange={(e) => setUserInfo({ ...userInfo, user_name: e.target.value })}
+              className="col-span-3"
+            />
+            <Button
+              onClick={() => setStep(2)} // 2단계로 이동
+            >
+              확인
+            </Button>
           </DialogContent>
         </Dialog>
       )}
-      {!isModalOpen && (
+
+      {/* 2단계: 나머지 개인정보 입력 */}
+      {isModalOpen && step === 2 && (
+        <Dialog open={isModalOpen}>
+          <DialogContent className="bg-white">
+            <DialogHeader>
+              <DialogTitle className="text-2xl font-bold text-slate-700">나의 영화 프로필</DialogTitle>
+            </DialogHeader>
+            <div className="grid gap-4 py-4">
+              <div className="grid grid-cols-4 items-center gap-4">
+                <Label htmlFor="age" className="text-right text-slate-600">
+                  나이
+                </Label>
+                <Input
+                  id="age"
+                  value={userInfo.age}
+                  onChange={(e) => setUserInfo({ ...userInfo, age: e.target.value })}
+                  className="col-span-3"
+                />
+              </div>
+              <div className="grid grid-cols-4 items-center gap-4">
+                <Label htmlFor="gender" className="text-right text-slate-600">
+                  성별
+                </Label>
+                <Select onValueChange={(value) => setUserInfo({ ...userInfo, gender: value })}>
+                  <SelectTrigger className="col-span-3">
+                    <SelectValue placeholder="성별을 선택하세요" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="male">남성</SelectItem>
+                    <SelectItem value="female">여성</SelectItem>
+                    <SelectItem value="other">기타</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+              <div className="grid grid-cols-4 items-center gap-4">
+                <Label htmlFor="job" className="text-right text-slate-600">
+                  직업
+                </Label>
+                <Input
+                  id="job"
+                  value={userInfo.job}
+                  onChange={(e) => setUserInfo({ ...userInfo, job: e.target.value })}
+                  className="col-span-3"
+                />
+              </div>
+              <Button
+                onClick={() => {
+                  handleUserInfoUpdate(userInfo); // 사용자 정보 업데이트
+                  setIsModalOpen(false); // 모달 닫기
+                  setStep(3); // 메인 페이지로 이동
+                }}
+                className="mt-4 bg-slate-700 text-white"
+              >
+                프로필 업데이트
+              </Button>
+            </div>
+          </DialogContent>
+        </Dialog>
+      )}
+
+      {/* 3단계: 메인 페이지 */}
+      {!isModalOpen && step === 3 && (
         <div className="flex flex-col items-center justify-center min-h-screen p-4 bg-gray-50">
           <Card className="w-full max-w-4xl bg-white shadow-md rounded-lg overflow-hidden">
             <CardHeader className="text-center bg-slate-700 text-white p-6 mb-6">
@@ -469,7 +611,10 @@ const MovieRecommendationBot = () => {
                     )}
                   </DialogContent>
                 </Dialog>
-                <Dialog>
+                <Dialog open={isOpen} onOpenChange={(open) => {
+                  setIsOpen(open);
+                  if (!open) updateMovieRecommendations(); // Dialog 닫힐 때 실행
+                }}>
                   <DialogTrigger asChild>
                     <Button variant="outline" className="bg-white text-slate-700 hover:bg-slate-100 transition-all duration-200">
                       <MessageSquarePlus className="mr-2 h-4 w-4" /> 영화 취향 공유
@@ -491,7 +636,6 @@ const MovieRecommendationBot = () => {
                         onKeyPress={handleGenreKeyPress}
                         placeholder="영화 장르를 입력하고 Enter를 누르세요"
                         className="mb-4"
-
                       />
 
                       {matchingGenres.length > 0 && (
@@ -507,9 +651,8 @@ const MovieRecommendationBot = () => {
                           ))}
                         </ul>
                       )}
-
-
                     </div>
+
                     {/* 배우 입력 필드 */}
                     <div className="grid gap-4 py-4">
                       <Label htmlFor="actors" className="text-right text-slate-600">
@@ -536,9 +679,7 @@ const MovieRecommendationBot = () => {
                           ))}
                         </ul>
                       )}
-
                     </div>
-
                   </DialogContent>
                 </Dialog>
                 <Dialog>
@@ -635,22 +776,23 @@ const MovieRecommendationBot = () => {
                     onMouseLeave={() => handleSelect('', 'movies')}
                   >
                     <div
-                      className="absolute top-2 right-2 z-10" 
-                      onMouseEnter={(event) => handleMouseEnter(1, 'Mad Max: Fury Road', event)}
-                      onMouseLeave={() => handleMouseLeave(1)}
+                      className="absolute top-2 right-2 z-10"
+                      onMouseEnter={(event) => handleMouseEnter(movie.title, movie.actors, event)}
+                      onMouseLeave={handleMouseLeave}
                     >
+
                       <span
                         className="text-white bg-blue-500 rounded-full w-6 h-6 flex items-center justify-center cursor-pointer"
                         style={{ fontSize: '14px' }}
                       >
                         ?
                       </span>
-                      {tooltip[movie.movie_id] && (
+                      {tooltip && (
                         <div
                           style={{
                             position: 'fixed',
-                            left: tooltip[movie.movie_id].position.left,
-                            top: tooltip[movie.movie_id].position.top,
+                            left: tooltip.position.left,
+                            top: tooltip.position.top,
                             minWidth: '150px',
                             maxWidth: '300px',
                             padding: '8px',
@@ -662,7 +804,7 @@ const MovieRecommendationBot = () => {
                             zIndex: 1000,
                           }}
                         >
-                          {tooltip[movie.movie_id].content}
+                          {tooltip.content}
                           <div
                             style={{
                               position: 'absolute',
@@ -677,6 +819,7 @@ const MovieRecommendationBot = () => {
                           ></div>
                         </div>
                       )}
+
                     </div>
 
                     <div className="flex">
