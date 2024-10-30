@@ -1,0 +1,14 @@
+Flask
+requests
+mysql
+flask-cors
+numpy
+scipy
+pandas
+joblib
+fastapi
+uvicorn
+pydantic
+langchain
+langchain-community
+ollama
