@@ -86,6 +86,7 @@
 * PyTorch : v2.4.0 
 * Flask : v3.0.3
 * MySQL Connector : v9.1.0
+  
 ### Frontend
 * React.Js : v18.2.0
 * CSS : v2.1
@@ -93,6 +94,8 @@
 * FastAPI : v0.112.2
 * LangChain : v0.3.4
 * LangChain-Community : v0.3.3
+* Ollama : v0.3.14
+* EEVE-Korean-Insturct-10.8B : v1.0
 
 ---
 # 3. 설치 및 사용법
