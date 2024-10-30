@@ -106,24 +106,24 @@
 
 - 모든 서버가 정상적으로 실행됐다면 웹에서 이름, 나이, 성별등을 작성하세요
 
-![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/58e877c4-0561-4c9e-8372-f0c2d7e5d302/17a3df68-90a1-4e3a-a5d0-fa8383bdf747/4203b541-8dc7-4d18-859a-6cc4140a2b14.png)
-
-![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/58e877c4-0561-4c9e-8372-f0c2d7e5d302/232b2c23-bf9c-483b-aa30-59fa7c5196be/0b15409f-b035-46bd-bc23-f5ea7a79d215.png)
+![image](https://github.com/user-attachments/assets/11f8060f-5e8d-4cb2-b80f-60ab6398f34a)
+![image](https://github.com/user-attachments/assets/d1fadacc-72c5-42ff-bf75-f84865042b10)
 
 - 메인페이지
     
-    ![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/58e877c4-0561-4c9e-8372-f0c2d7e5d302/b4a21a87-ced9-432c-b232-19f3df1fa48f/image.png)
-    
+![image](https://github.com/user-attachments/assets/5de791af-29c6-4acd-b485-92b8572ab274)
+
 - 영화 취향 공유 버튼을 클릭하고 선호 장르, 선호 배우를 입력합니다.
 - 본 영화 기록 버튼을 누르고 시청한 영화들을 기록합니다.
 
-![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/58e877c4-0561-4c9e-8372-f0c2d7e5d302/b039beb2-b03f-4401-ae05-2dfea4a6f31b/image.png)
+![image](https://github.com/user-attachments/assets/0a3f6e60-58a5-4b9b-b7c9-e4e50065c6dd)
 
-![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/58e877c4-0561-4c9e-8372-f0c2d7e5d302/3ad5ac10-36da-47d5-8ed2-9b7228f09f14/image.png)
+![image](https://github.com/user-attachments/assets/d4066339-6628-4264-92df-72ec91e0a402)
 
 - 마지막으로 영화 시청 상황, 환경, 같이 보는 사람등등 다양한 입력을 넣어줍니다. 해당 부분에는 ‘~한 상황에서 ~와 같이 혹은 혼자 볼건데 ~한 장면이 있는 영화는 별로야’처럼 작성하면 좋습니다
     
-    ![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/58e877c4-0561-4c9e-8372-f0c2d7e5d302/bcc2cba4-7649-414d-8f36-416a1005c991/image.png)
+![image](https://github.com/user-attachments/assets/80bdc834-e13c-4e76-a2b9-0d3fb6aafaf7)
+
     
 - 그 후 새로운 영화 발견하기 버튼을 누르면 개인화된 영화 추천을 진행합니다.
 
