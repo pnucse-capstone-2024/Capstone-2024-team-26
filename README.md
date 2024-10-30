@@ -100,11 +100,32 @@
 ---
 # 3. 설치 및 사용법
 
-본 프로젝트는 Ubuntu 20.04 버전에서 개발되었으며 함께 포함된 다음의 스크립트를 수행하여 
-관련 패키지들의 설치와 빌드를 수행할 수 있습니다.
-```
-$ ./install_and_build.sh
-```
+- 본 프로젝트는 window 환경에서 개발되었으며 함께 포함된 다음의 스크립트를 수행하여 관련 패키지들의 설치와 빌드를 수행할 수 있습니다.
+
+`$ ./install_and_build.sh`
+
+- 모든 서버가 정상적으로 실행됐다면 웹에서 이름, 나이, 성별등을 작성하세요
+
+![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/58e877c4-0561-4c9e-8372-f0c2d7e5d302/17a3df68-90a1-4e3a-a5d0-fa8383bdf747/4203b541-8dc7-4d18-859a-6cc4140a2b14.png)
+
+![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/58e877c4-0561-4c9e-8372-f0c2d7e5d302/232b2c23-bf9c-483b-aa30-59fa7c5196be/0b15409f-b035-46bd-bc23-f5ea7a79d215.png)
+
+- 메인페이지
+    
+    ![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/58e877c4-0561-4c9e-8372-f0c2d7e5d302/b4a21a87-ced9-432c-b232-19f3df1fa48f/image.png)
+    
+- 영화 취향 공유 버튼을 클릭하고 선호 장르, 선호 배우를 입력합니다.
+- 본 영화 기록 버튼을 누르고 시청한 영화들을 기록합니다.
+
+![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/58e877c4-0561-4c9e-8372-f0c2d7e5d302/b039beb2-b03f-4401-ae05-2dfea4a6f31b/image.png)
+
+![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/58e877c4-0561-4c9e-8372-f0c2d7e5d302/3ad5ac10-36da-47d5-8ed2-9b7228f09f14/image.png)
+
+- 마지막으로 영화 시청 상황, 환경, 같이 보는 사람등등 다양한 입력을 넣어줍니다. 해당 부분에는 ‘~한 상황에서 ~와 같이 혹은 혼자 볼건데 ~한 장면이 있는 영화는 별로야’처럼 작성하면 좋습니다
+    
+    ![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/58e877c4-0561-4c9e-8372-f0c2d7e5d302/bcc2cba4-7649-414d-8f36-416a1005c991/image.png)
+    
+- 그 후 새로운 영화 발견하기 버튼을 누르면 개인화된 영화 추천을 진행합니다.
 
 ---
 # 4. 소개 및 시연 영상
