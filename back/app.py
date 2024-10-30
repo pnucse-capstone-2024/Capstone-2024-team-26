@@ -9,7 +9,7 @@ CORS(app)
 
 def get_db_connection():
     return mysql.connector.connect(
-        host="192.168.219.106",
+        host="125.184.62.136",
         user="new_user",
         password="new_password",
         database="movie_db"
@@ -35,21 +35,26 @@ def call_fastapi_persona(name):
             "user_input": user_row["user_input"]
         }
 
-        if user_row["persona"]:
-            fastapi_url = "http://localhost:8000/update_persona"
-            request_data = {
-                "existing_persona": user_row["persona"],
-                "user_input": user_info["user_input"]
-            }
-        else:
-            fastapi_url = "http://localhost:8000/generate_persona"
-            request_data = user_info
+
+
+        fastapi_url = "http://localhost:8000/generate_persona"
+        request_data = user_info
 
         response = requests.post(fastapi_url, json=request_data)
+
+        if response.status_code == 200:
+            print(response.text)  # 결과값을 JSON 형태로 출력
+        else:
+            print(f"Error: {response.status_code}, {response.text}")
 
         # FastAPI 서버 요청이 실패한 경우 처리
         if response.status_code != 200:
             return jsonify({"error": "Failed to call FastAPI"}), response.status_code
+
+        # 요청이 성공적으로 처리되었을 때 페르소나 업데이트
+        cursor.execute("UPDATE user SET persona = %s WHERE name = %s", (response.json().get("persona"), name))
+        print(response)
+        conn.commit()
 
         # 요청이 성공적으로 처리되었음을 클라이언트에 알림
         return jsonify({"message": "Persona processed successfully"}), 200
@@ -57,13 +62,18 @@ def call_fastapi_persona(name):
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
-    
+    finally:
+        # 데이터베이스 연결 자원 해제
+        cursor.close()
+        conn.close()
+
+
 
 @app.route('/<string:name>/user_get_recommendations', methods=['GET'])
 def user_get_recommendations(name):
     try:
         conn = get_db_connection()
-        cursor = conn.cursor(dictionary=True)
+        cursor = conn.cursor(dictionary=True,buffered=True)
 
         # 사용자 정보를 가져옵니다.
         cursor.execute(
@@ -74,19 +84,23 @@ def user_get_recommendations(name):
         if persona_row is None:
             return jsonify({"error": "User not found"}), 404  # 사용자 정보가 없을 때
 
+        movie_candidates = persona_row.get("movie_candidates", []).split(',')
+        watched_movies = persona_row.get("watched_movies", []).split(',')
         if persona_row and persona_row["persona"]:
             # 영화 추천을 위한 데이터 구성
             movie_request_data = {
                 "persona": persona_row["persona"],
-                "movie_candidates": persona_row.get("movie_candidates", []),
-                "watched_movies": persona_row.get("watched_movies", []),
+                "movie_candidates": movie_candidates,
+                "watched_movies": watched_movies,
                 "user_input": persona_row.get("user_input", "")
             }
 
 
             # FastAPI 서버에 추천 요청 전송
             fastapi_url = "http://localhost:8000/recommend_movies"
+
             response = requests.post(fastapi_url, json=movie_request_data)
+            print(response)
             response_data = response.json()["recommendations"]
 
 

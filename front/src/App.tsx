@@ -427,8 +427,8 @@ const MovieRecommendationBot = () => {
       <div className="flex">
         {[1, 2, 3, 4, 5].map((별) => (
           <Star
-            key={star}
-            className={`cursor-pointer transition-all duration-200 hover:scale-110 ${star <= rating ? 'text-yellow-400' : 'text-gray-300'}`}
+            key={별}
+            className={`cursor-pointer transition-all duration-200 hover:scale-110 ${별 <= rating ? 'text-yellow-400' : 'text-gray-300'}`}
             onClick={() => onRate(별)}
           />
         ))}
