@@ -83,15 +83,16 @@
 ## 2.2. 사용 기술
 > ex) React.Js - React14, Node.js - v20.0.2
 ### Backend
-* Flask
-* MySQL
+* PyTorch : v2.4.0 
+* Flask : v3.0.3
+* MySQL Connector : v9.1.0
 ### Frontend
-* React.Js 
-* CSS
+* React.Js : v18.2.0
+* CSS : v2.1
 ### Server
-* FastAPI : ver 0.112.2
-* LangChain : ver 0.3.4
-* LangChain-Community : ver 0.3.3
+* FastAPI : v0.112.2
+* LangChain : v0.3.4
+* LangChain-Community : v0.3.3
 
 ---
 # 3. 설치 및 사용법
