@@ -81,7 +81,7 @@
 
 
 ## 2.2. 사용 기술
-> ex) React.Js - React14, Node.js - v20.0.2
+
 ### Backend
 * PyTorch : v2.4.0 
 * Flask : v3.0.3
