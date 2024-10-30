@@ -91,8 +91,9 @@
 * React.Js 
 * CSS
 ### Server
-* FastAPI
-* LangChain
+* FastAPI : ver 0.112.2
+* LangChain : ver 0.3.4
+* LangChain-Community : ver 0.3.3
 
 ---
 # 3. 설치 및 사용법
@@ -115,7 +116,7 @@ $ ./install_and_build.sh
 * LLM 모델 선정 및 테스트
 * 시스템 아키텍처 설계
 
-### 장재혁, spiderman@marvel.com
+### 장재혁, jjhfig321@gmail.com
 * 백엔드 개발
 * 결과 시각화
 * API 설계 및 구현
