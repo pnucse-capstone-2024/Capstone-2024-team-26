@@ -76,8 +76,8 @@
 # 2. 상세 설계
 
 ## 2.1. 시스템 구성도
+![architecture](https://github.com/user-attachments/assets/fe2f4f4d-efa3-406d-ac14-3b2e177a412f)
 
-![image](https://github.com/user-attachments/assets/3c96c77f-ceca-4972-a2ea-49bb9a1186e9)
 
 
 ## 2.2. 사용 기술
