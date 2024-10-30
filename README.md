@@ -76,31 +76,56 @@
 # 2. 상세 설계
 
 ## 2.1. 시스템 구성도
+![architecture](https://github.com/user-attachments/assets/fe2f4f4d-efa3-406d-ac14-3b2e177a412f)
 
-![image](https://github.com/user-attachments/assets/3c96c77f-ceca-4972-a2ea-49bb9a1186e9)
 
 
 ## 2.2. 사용 기술
-> ex) React.Js - React14, Node.js - v20.0.2
+
 ### Backend
-* Flask
-* MySQL
+* PyTorch : v2.4.0 
+* Flask : v3.0.3
+* MySQL Connector : v9.1.0
+  
 ### Frontend
-* React.Js 
-* CSS
+* React.Js : v18.2.0
+* CSS : v2.1
 ### Server
-* FastAPI : ver 0.112.2
-* LangChain : ver 0.3.4
-* LangChain-Community : ver 0.3.3
+* FastAPI : v0.112.2
+* LangChain : v0.3.4
+* LangChain-Community : v0.3.3
+* Ollama : v0.3.14
+* EEVE-Korean-Insturct-10.8B : v1.0
 
 ---
 # 3. 설치 및 사용법
 
-본 프로젝트는 Ubuntu 20.04 버전에서 개발되었으며 함께 포함된 다음의 스크립트를 수행하여 
-관련 패키지들의 설치와 빌드를 수행할 수 있습니다.
-```
-$ ./install_and_build.sh
-```
+- 본 프로젝트는 window 환경에서 개발되었으며 함께 포함된 다음의 스크립트를 수행하여 관련 패키지들의 설치와 빌드를 수행할 수 있습니다.
+
+`$ ./install_and_build.sh`
+
+- 모든 서버가 정상적으로 실행됐다면 웹에서 이름, 나이, 성별등을 작성하세요
+
+![image](https://github.com/user-attachments/assets/11f8060f-5e8d-4cb2-b80f-60ab6398f34a)
+![image](https://github.com/user-attachments/assets/d1fadacc-72c5-42ff-bf75-f84865042b10)
+
+- 메인페이지
+    
+![image](https://github.com/user-attachments/assets/5de791af-29c6-4acd-b485-92b8572ab274)
+
+- 영화 취향 공유 버튼을 클릭하고 선호 장르, 선호 배우를 입력합니다.
+- 본 영화 기록 버튼을 누르고 시청한 영화들을 기록합니다.
+
+![image](https://github.com/user-attachments/assets/0a3f6e60-58a5-4b9b-b7c9-e4e50065c6dd)
+
+![image](https://github.com/user-attachments/assets/d4066339-6628-4264-92df-72ec91e0a402)
+
+- 마지막으로 영화 시청 상황, 환경, 같이 보는 사람등등 다양한 입력을 넣어줍니다. 해당 부분에는 ‘~한 상황에서 ~와 같이 혹은 혼자 볼건데 ~한 장면이 있는 영화는 별로야’처럼 작성하면 좋습니다
+    
+![image](https://github.com/user-attachments/assets/80bdc834-e13c-4e76-a2b9-0d3fb6aafaf7)
+
+    
+- 그 후 새로운 영화 발견하기 버튼을 누르면 개인화된 영화 추천을 진행합니다.
 
 ---
 # 4. 소개 및 시연 영상
